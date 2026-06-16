@@ -5,6 +5,7 @@ import authRoutes from './routes/auth';
 import scheduleRoutes from './routes/schedule';
 import attendanceRoutes from './routes/attendance';
 import statsRoutes from './routes/stats';
+import announcementRoutes from './routes/announcements';
 import { authMiddleware } from './middleware/auth';
 
 const app = express();
@@ -22,6 +23,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/schedules', scheduleRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/stats', statsRoutes);
+app.use('/api/announcements', announcementRoutes);
 
 // Health check
 app.get('/api/health', (_req, res) => {

@@ -59,3 +59,25 @@ export interface AuthPayload {
   userId: number;
   role: 'admin' | 'driver';
 }
+
+export interface Announcement {
+  id: number;
+  title: string;
+  content: string;
+  target_role: 'all' | 'admin' | 'driver';
+  created_by: number;
+  created_at: string;
+}
+
+export interface AnnouncementWithDetail extends Announcement {
+  creator_name: string;
+  is_read: boolean;
+  read_at: string | null;
+}
+
+export interface AnnouncementRead {
+  id: number;
+  announcement_id: number;
+  user_id: number;
+  read_at: string;
+}

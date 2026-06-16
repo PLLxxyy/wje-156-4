@@ -55,6 +55,26 @@ export function initDatabase(): void {
       FOREIGN KEY (schedule_id) REFERENCES schedules(id),
       FOREIGN KEY (driver_id) REFERENCES users(id)
     );
+
+    CREATE TABLE IF NOT EXISTS announcements (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      content TEXT NOT NULL,
+      target_role TEXT NOT NULL CHECK(target_role IN ('all', 'admin', 'driver')),
+      created_by INTEGER NOT NULL,
+      created_at TEXT DEFAULT (datetime('now', 'localtime')),
+      FOREIGN KEY (created_by) REFERENCES users(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS announcement_reads (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      announcement_id INTEGER NOT NULL,
+      user_id INTEGER NOT NULL,
+      read_at TEXT DEFAULT (datetime('now', 'localtime')),
+      FOREIGN KEY (announcement_id) REFERENCES announcements(id) ON DELETE CASCADE,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      UNIQUE(announcement_id, user_id)
+    );
   `);
 
   // Seed data

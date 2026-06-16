@@ -103,3 +103,21 @@ export const STATUS_LABELS: Record<string, string> = {
   absent: '缺勤',
   late_and_early: '迟到+早退',
 };
+
+export interface Announcement {
+  id: number;
+  title: string;
+  content: string;
+  target_role: 'all' | 'admin' | 'driver';
+  created_by: number;
+  created_at: string;
+  creator_name?: string;
+  is_read?: number | boolean;
+  read_at?: string | null;
+}
+
+export const TARGET_ROLE_LABELS: Record<string, string> = {
+  all: '全部',
+  admin: '管理员',
+  driver: '司机',
+};

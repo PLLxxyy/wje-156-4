@@ -125,3 +125,35 @@ export function exportAttendanceCSV(year: number, month: number) {
   const prefix = `${year}-${String(month).padStart(2, '0')}`;
   return downloadCSV(`/stats/export/attendance?year=${year}&month=${month}`, `attendance-${prefix}.csv`);
 }
+
+// Announcements
+export function createAnnouncement(data: { title: string; content: string; target_role: string }) {
+  return request<any>('/announcements', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export function getAnnouncements() {
+  return request<any[]>('/announcements');
+}
+
+export function getMyAnnouncements() {
+  return request<any[]>('/announcements/mine');
+}
+
+export function getUnreadAnnouncementCount() {
+  return request<{ unreadCount: number }>('/announcements/unread-count');
+}
+
+export function markAnnouncementRead(id: number) {
+  return request<any>(`/announcements/${id}/read`, { method: 'POST' });
+}
+
+export function markAllAnnouncementsRead() {
+  return request<any>('/announcements/read-all', { method: 'POST' });
+}
+
+export function deleteAnnouncement(id: number) {
+  return request<any>(`/announcements/${id}`, { method: 'DELETE' });
+}
